@@ -23,6 +23,7 @@ public class SealView extends TextView {
     private int mRightSize = 50;
     private String mRightString;
     private String mLeftString;
+    private float mR = 350f;
 
     public SealView(Context context) {
         super(context);
@@ -34,9 +35,7 @@ public class SealView extends TextView {
         setGravity(Gravity.CENTER);
         setTextColor(getResources().getColor(android.R.color.holo_red_light));
         setBackground(getResources().getDrawable(R.drawable.list_icon_bzj));
-        ObjectAnimator rotation = ObjectAnimator.ofFloat(this, "rotation", 0f, 330f);
-        rotation.setDuration(0);
-        rotation.start();
+        setRotationSeal(mR);
 
 
         int count = typedArray.getIndexCount();
@@ -61,6 +60,16 @@ public class SealView extends TextView {
         typedArray.recycle();
 
 
+        reDraw();
+    }
+
+    private void setRotationSeal(float r) {
+        ObjectAnimator rotation = ObjectAnimator.ofFloat(this, "rotation", 0f, r);
+        rotation.setDuration(0);
+        rotation.start();
+    }
+
+    private void reDraw() {
         StringBuilder sb = new StringBuilder();
 
         int leftIndex = 0;
@@ -81,4 +90,23 @@ public class SealView extends TextView {
         setText(span);
     }
 
+    public void setRightString(String rightString) {
+        mRightString = rightString;
+        reDraw();
+    }
+
+    public void setLeftString(String leftString) {
+        mLeftString = leftString;
+        reDraw();
+    }
+
+    public void setRightSize(int rightSize) {
+        mRightSize = rightSize;
+        reDraw();
+    }
+
+    public void setLeftSize(int leftSize) {
+        mLeftSize = leftSize;
+        reDraw();
+    }
 }
